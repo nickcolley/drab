@@ -19,7 +19,8 @@ function hydrate () {
       }).reduce((a, b) => {
         return Object.assign(a, b)
       }, {})
-    import(`./components/${componentName}.js`).then(Component => {
+    import(/* webpackMode: "lazy-once" */ `./components/${componentName}.js`
+    ).then(Component => {
       render(h(Component.default, props), $component.parentNode, $component)
     })
   })

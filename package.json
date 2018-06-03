@@ -26,8 +26,8 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
-    "babel-plugin-dynamic-import-node": "^1.2.0",
     "babel-plugin-preact-require": "^1.0.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-preact": "^1.1.0",
     "nodemon": "^1.17.5",
@@ -40,7 +40,7 @@
       "preact"
     ],
     "plugins": [
-      "dynamic-import-node",
+      "syntax-dynamic-import",
       "preact-require"
     ]
   }
