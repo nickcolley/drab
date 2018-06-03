@@ -1,5 +1,4 @@
-const constants = require('./constants.js')
-const attributeName = constants.attributeName
+import { attributeName } from './constants.js'
 
 // http://me.dt.in.th/page/JavaScript-override/
 function override (object, methodName, callback) {
@@ -35,16 +34,18 @@ function dehydrateAttributes () {
 }
 
 function dehydrate (Component) {
-  if (!isStateless(Component)) {
-    override(Component.prototype, 'render', compose(function (render) {
-      render.attributes = Object.assign(
-        render.attributes,
-        dehydrateAttributes.call(this, Component.name)
-      )
-      return render
-    }))
+  if (typeof DISABLE_DEHYDRATOR === 'undefined') {
+    if (!isStateless(Component)) {
+      override(Component.prototype, 'render', compose(function (render) {
+        render.attributes = Object.assign(
+          render.attributes,
+          dehydrateAttributes.call(this, Component.name)
+        )
+        return render
+      }))
+    }
   }
   return Component
 }
 
-module.exports = dehydrate
+export default dehydrate

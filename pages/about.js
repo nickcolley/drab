@@ -1,16 +1,12 @@
-const Preact = require('preact')
-const h = Preact.h
+import TimerButton from '../components/TimerButton.js'
 
-const TimerButton = require('../components/TimerButton.js')
-
-module.exports = function () {
+export default () => {
   return (
-    h(
-      'div',
-      null,
-      h('a', { href: '/' }, 'home'),
-      h(TimerButton, { label: 'test', randomProp: Math.random() }),
-      h(TimerButton, { label: 'test-two' })
-    )
+    <div>
+      <a href='/'>Home</a>
+      <br />
+      <TimerButton label='test' randomProp={Math.random()} />
+      <TimerButton label='test-two' />
+    </div>
   )
 }

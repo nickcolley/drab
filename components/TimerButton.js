@@ -1,8 +1,6 @@
-const Preact = require('preact')
-const h = Preact.h
-const Component = Preact.Component
+import { Component } from 'preact'
 
-const dehydrate = require('../dehydrate.js')
+import dehydrate from '../dehydrate.js'
 
 class TimerButton extends Component {
   constructor (props) {
@@ -38,17 +36,15 @@ class TimerButton extends Component {
 
   render () {
     return (
-      h('button', {
-        onClick: this.handleClick.bind(this)
-      },
-        (this.state.paused ? (
+      <button onClick={this.handleClick.bind(this)}>
+        {this.state.paused ? (
           'Paused'
         ) : (
           this.props.label + ': ' + this.state.seconds
-        ))
-      )
+        )}
+      </button>
     )
   }
 }
 
-module.exports = dehydrate(TimerButton)
+export default dehydrate(TimerButton)

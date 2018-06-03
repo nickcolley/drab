@@ -1,11 +1,8 @@
-const Preact = require('preact')
-const h = Preact.h
-const render = Preact.render
+import { h, render } from 'preact'
 
-const constants = require('./constants.js')
-const attributeName = constants.attributeName
+import { attributeName } from './constants.js'
 
-function hydrate (dehydratedComponents) {
+function hydrate () {
   const $componentsToHydrate = document.querySelectorAll(`[data-${attributeName}]`)
 
   $componentsToHydrate.forEach($component => {
@@ -22,9 +19,10 @@ function hydrate (dehydratedComponents) {
       }).reduce((a, b) => {
         return Object.assign(a, b)
       }, {})
-    var Component = dehydratedComponents[componentName]
-    render(h(Component, props), $component.parentNode, $component)
+    import(`./components/${componentName}.js`).then(Component => {
+      render(h(Component.default, props), $component.parentNode, $component)
+    })
   })
 }
 
-module.exports = hydrate
+export default hydrate

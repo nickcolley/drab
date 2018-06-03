@@ -1,36 +1,37 @@
-const h = require('preact').h
-const render = require('preact-render-to-string')
+import express from 'express'
+import compression from 'compression'
 
-const express = require('express')
-const nunjucks = require('nunjucks')
+import nunjucks from 'nunjucks'
+import render from 'preact-render-to-string'
 
-var app = express()
+import Index from './pages/index.js'
+import About from './pages/about.js'
+
+const app = express()
 
 nunjucks.configure('./', {
   autoescape: true,
   express: app
 })
 
-app.get('/', function (request, response) {
+app.use(compression())
+
+app.get('/', (request, response) => {
   const title = 'Home'
-  const content = render(
-    h(require('./pages/index.js'))
-  )
+  const content = render(<Index />)
 
   response.render('index.html', { title, content })
 })
 
-app.get('/about', function (request, response) {
+app.get('/about', (request, response) => {
   const title = 'About'
-  const content = render(
-    h(require('./pages/about.js'))
-  )
+  const content = render(<About />)
 
   response.render('index.html', { title, content })
 })
 
 app.use(express.static('./dist'))
 
-var listener = app.listen(3000, function () {
+const listener = app.listen(3000, () => {
   console.log('Your app is listening on port ' + listener.address().port)
 })

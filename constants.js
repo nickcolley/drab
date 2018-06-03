@@ -1,3 +1,5 @@
-module.exports = {
-  attributeName: 'component'
+let attributeName = 'component'
+
+export {
+  attributeName
 }

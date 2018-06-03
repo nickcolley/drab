@@ -1,7 +1,3 @@
-const hydrate = require('./hydrate.js')
+import hydrate from './hydrate.js'
 
-var dehydratedComponents = {
-  TimerButton: require(`./components/TimerButton.js`)
-}
-
-hydrate(dehydratedComponents)
+hydrate()
