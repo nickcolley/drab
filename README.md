@@ -19,6 +19,6 @@ Todo:
 
 - Have a good example of something that falls back to a completely different output, for example accordions should fallback to static content. Next.js allows you to know if you're on the server or not for rendering.
 - Remove decision to hydrate, from the user, do we need Webpack to do this, since we can't figure that out at runtime...
-- Dev mode only pretty print HTML
+- Format html using https://github.com/marvinhagemeister/preact-server-renderer ?
 - Fix XSS vuln with rehydration
 - Figure out if forking Next.js would be easier?

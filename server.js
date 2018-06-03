@@ -1,10 +1,15 @@
 import fs from 'fs'
 import { promisify } from 'util'
 
+import posthtml from 'posthtml';
+import beautify from 'posthtml-beautify';
+
 import render from 'preact-render-to-string'
 import express from 'express'
 
 import Template from './pages/template.js'
+
+const NODE_ENV = process.env.NODE_ENV || 'development'
 
 const readdir = promisify(fs.readdir)
 const readfile = promisify(fs.readFile)
@@ -27,7 +32,17 @@ const setPagesRoutes = async () => {
           <Page.default />
         </Template>
       )
-      response.send('<!DOCTYPE html>\n\r' + template)
+      let html = '<!DOCTYPE html>' + template
+      if (NODE_ENV === 'development') {
+        const beautifyOptions = {
+          rules :{
+            blankLines: false
+          }
+        }
+        const processedHtml = await posthtml().use(beautify(beautifyOptions)).process(html)
+        html = processedHtml.html
+      }
+      response.send(html)
     })
   } catch (error) {
     console.log(error)
