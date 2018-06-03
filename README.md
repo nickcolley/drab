@@ -16,7 +16,8 @@ Main differences in the hydrator are, the server renderer markup is cleaner:
 2. Props are data attributes
 
 Todo:
-
+- Use React? React doesnt allow for monkey-patching the render method, so might need a custom renderer. 
+- Hot reloading, dev experience is painful restarting everything constantly.
 - Have a good example of something that falls back to a completely different output, for example accordions should fallback to static content. Next.js allows you to know if you're on the server or not for rendering.
 - Remove decision to hydrate, from the user, do we need Webpack to do this, since we can't figure that out at runtime...
 - Format html using https://github.com/marvinhagemeister/preact-server-renderer ?
