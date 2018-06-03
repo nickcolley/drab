@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'eval',
   mode: 'development',
   entry: [
     './client.js'

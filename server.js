@@ -1,11 +1,16 @@
 import fs from 'fs'
 import { promisify } from 'util'
 
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackConfig from './webpack.config.dev.js'
+
 import posthtml from 'posthtml';
 import beautify from 'posthtml-beautify';
 
 import render from 'preact-render-to-string'
 import express from 'express'
+import compression from 'compression'
 
 import Template from './pages/template.js'
 
@@ -15,6 +20,15 @@ const readdir = promisify(fs.readdir)
 const readfile = promisify(fs.readFile)
 
 const app = express()
+
+if (NODE_ENV === 'production') {
+  app.use(compression())
+}
+
+if (NODE_ENV === 'development') {
+  const compiler = webpack(webpackConfig)
+  app.use(webpackDevMiddleware(compiler, {}))
+}
 
 const setPagesRoutes = async () => {
   try {
