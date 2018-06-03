@@ -3,19 +3,13 @@ import { promisify } from 'util'
 
 import render from 'preact-render-to-string'
 import express from 'express'
-import nunjucks from 'nunjucks'
 
-import Index from './pages/index.js'
-import About from './pages/about.js'
+import Template from './pages/template.js'
 
 const readdir = promisify(fs.readdir)
+const readfile = promisify(fs.readFile)
 
 const app = express()
-
-nunjucks.configure('./', {
-  autoescape: true,
-  express: app
-})
 
 const setPagesRoutes = async () => {
   try {
@@ -28,8 +22,12 @@ const setPagesRoutes = async () => {
       }
       const title = page
       const Page = await import(`./pages/${page}.js`)
-      const content = render(<Page.default />)
-      response.render('index.html', { title, content })
+      const template = render(
+        <Template title={title}>
+          <Page.default />
+        </Template>
+      )
+      response.send('<!DOCTYPE html>\n\r' + template)
     })
   } catch (error) {
     console.log(error)
