@@ -24,11 +24,15 @@ function dehydrateAttributes () {
     [`data-${attributeName}`]: hydrateName
   }
   for (var key in this.props) {
-    if (key === 'children') {
+    var value = this.props[key]
+    if (typeof value === 'undefined') {
       continue
     }
     var hydrateKey = `data-${attributeName}-${key}`
-    hydrateProps[hydrateKey] = this.props[key]
+    if (typeof value === 'object' && typeof value[0] === 'object') {
+      value = encodeURI(JSON.stringify(value))
+    }
+    hydrateProps[hydrateKey] = value
   }
   return hydrateProps
 }

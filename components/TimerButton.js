@@ -42,6 +42,7 @@ class TimerButton extends Component {
         ) : (
           this.props.label + ': ' + this.state.seconds
         )}
+        {this.props.children}
       </button>
     )
   }

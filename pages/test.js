@@ -6,7 +6,12 @@ export default () => {
       <a href='/'>Home</a>
       <br />
       <TimerButton label='test' randomProp={Math.random()} />
-      <TimerButton label='test-two' />
+      <TimerButton label='test-two'>
+        Potato
+      </TimerButton>
+      <TimerButton label='test-two'>
+        <span>Potato</span>
+      </TimerButton>
     </div>
   )
 }
